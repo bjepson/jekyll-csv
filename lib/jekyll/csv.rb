@@ -23,9 +23,15 @@ module Jekyll
           if site.layouts.key?(collection_name)
             doc.merge_data!({'layout' => collection_name})
             doc.merge_data!({'slug' => item[slug_field]})
-            doc.merge_data!({'title' => item[title_field]})
-            doc.merge_data!({'image' => item[image_field]})
-            doc.merge_data!({'description' => item[description_field]})
+            if title_field
+              doc.merge_data!({'title' => item[title_field]})
+            end
+            if image_field
+              doc.merge_data!({'image' => item[image_field]})
+            end
+            if description_field
+              doc.merge_data!({'description' => item[description_field]})
+            end
           end
           collection.docs << doc
         end
@@ -49,15 +55,15 @@ module Jekyll
       end
       
       def title_field
-        @title_field ||= conf.fetch('title', csv_data.first.keys.first)
+        @title_field ||= conf.fetch('title', nil)
       end
 
       def image_field
-        @image_field ||= conf.fetch('image', csv_data.first.keys.first)
+        @image_field ||= conf.fetch('image', nil)
       end
       
       def description_field
-        @description_field ||= conf.fetch('description', csv_data.first.keys.first)
+        @description_field ||= conf.fetch('description', nil)
       end
     end
 

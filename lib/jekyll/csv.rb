@@ -25,6 +25,7 @@ module Jekyll
             doc.merge_data!({'slug' => item[slug_field]})
             doc.merge_data!({'title' => item[title_field]})
             doc.merge_data!({'image' => item[image_field]})
+            doc.merge_data!({'description' => item[description_field]})
           end
           collection.docs << doc
         end
@@ -53,6 +54,10 @@ module Jekyll
 
       def image_field
         @image_field ||= conf.fetch('image', csv_data.first.keys.first)
+      end
+      
+      def description_field
+        @description_field ||= conf.fetch('description', csv_data.first.keys.first)
       end
     end
 

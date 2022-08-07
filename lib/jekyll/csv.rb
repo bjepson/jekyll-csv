@@ -18,7 +18,7 @@ module Jekyll
         collection = Collection.new(site, collection_name)
         csv_data.each do |item|
           # If the display flag is set and it doesn't start with "y", skip this item
-          if display_flag and !item[display_flag].downcase().start_with?('y')
+          if display_flag and item[display_flag] and !item[display_flag].downcase().start_with?('y')
             next
           end
           path = File.join(site.source, "_#{collection_name}", "#{Jekyll::Utils.slugify(item[slug_field])}.md")
